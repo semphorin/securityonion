@@ -1,0 +1,25 @@
+{
+  "description" : "Email alerts from Sublime",
+  "processors" : [
+    { "set":         { "field": "event.module", "value": "sublime"  } },
+    { "set":         { "field": "event.dataset", "value": "alert"  } },
+    { "set":         { "field": "event.severity", "value": 3, "override": true }  },
+    { "set":         { "field": "rule.name", "value": "Sublime Email Rule Triggered: {{ flagged_rules.0.name }}", "override": true }  },
+    { "set":         { "field": "sublime.message_group_id", "value": "{{ metadata._id }}", "override": true }  },
+    {
+        "grok": {
+          "field": "sublime.request_url",
+          "patterns": ["^%{DATA:sublime_host}/v0%{GREEDYDATA}$"]
+        }
+    },
+    { "rename":      { "field": "sublime_host", "target_field": "sublime.url", "ignore_missing": true } },
+    { "rename":      { "field": "data", "target_field": "sublime", "ignore_missing": true } },
+    { "rename":      { "field": "flagged_rules", "target_field": "sublime.flagged_rules", "ignore_missing": true } },
+    { "rename":      { "field": "organization_id", "target_field": "sublime.organization_id", "ignore_missing": true } },
+    { "rename":      { "field": "review_status", "target_field": "sublime.review_status", "ignore_missing": true } },
+    { "rename":      { "field": "state", "target_field": "sublime.state", "ignore_missing": true } },
+    { "rename":      { "field": "user_reports", "target_field": "sublime.user_reports", "ignore_missing": true } },
+    { "pipeline":    { "name": "common" } }
+  ]
+}
+
