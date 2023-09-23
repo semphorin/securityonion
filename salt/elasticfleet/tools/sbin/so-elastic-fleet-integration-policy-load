@@ -65,16 +65,18 @@ if [ ! -f /opt/so/state/eaintegrations.txt ]; then
   # Fleet Server - Optional integrations
   for INTEGRATION in /opt/so/conf/elastic-fleet/integrations/FleetServer*/*.json
   do
-    FLEET_POLICY=`echo "$INTEGRATION"| cut -d'/' -f7`
-    printf "\n\nFleet Server Policy - Loading $INTEGRATION\n"
-    elastic_fleet_integration_check "$FLEET_POLICY" "$INTEGRATION"
-    if [ -n "$INTEGRATION_ID" ]; then
-      printf "\n\nIntegration $NAME exists - Updating integration\n"
-      elastic_fleet_integration_update "$INTEGRATION_ID" "@$INTEGRATION"
-    else
-      printf "\n\nIntegration does not exist - Creating integration\n"
-      if [ "$NAME" != "elasticsearch-logs" ]; then
-        elastic_fleet_integration_create "@$INTEGRATION"
+    if ! [ "$INTEGRATION" == "/opt/so/conf/elastic-fleet/integrations/FleetServer*/*.json" ]; then
+      FLEET_POLICY=`echo "$INTEGRATION"| cut -d'/' -f7`
+      printf "\n\nFleet Server Policy - Loading $INTEGRATION\n"
+      elastic_fleet_integration_check "$FLEET_POLICY" "$INTEGRATION"
+      if [ -n "$INTEGRATION_ID" ]; then
+        printf "\n\nIntegration $NAME exists - Updating integration\n"
+        elastic_fleet_integration_update "$INTEGRATION_ID" "@$INTEGRATION"
+      else
+        printf "\n\nIntegration does not exist - Creating integration\n"
+        if [ "$NAME" != "elasticsearch-logs" ]; then
+          elastic_fleet_integration_create "@$INTEGRATION"
+        fi
       fi
     fi
   done

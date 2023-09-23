@@ -97,7 +97,7 @@ fleet_server_integrations_{{ minion }}:
 {% for integration in integration_keys %}
 {% set enabled_nodes = optional_integrations[integration]["enabled_nodes"] %}
 {% if minion in enabled_nodes %}
-optional_integrations_dynamic_{{ minion }}:
+optional_integrations_dynamic_{{ minion }}_{{ integration }}:
   file.managed:
     - name: /opt/so/conf/elastic-fleet/integrations/FleetServer_{{ minion }}/{{ integration }}.json
     - source: salt://elasticfleet/files/integrations-optional/{{ integration }}.json
@@ -117,9 +117,7 @@ ea-integrations-load:
     - onchanges:
       - file: eaintegration
       - file: eadynamicintegration
-      {% for minion in node_data %}
-      - file: optional_integrations_dynamic_{{ minion }}
-      {% endfor %}
+      - file: /opt/so/conf/elastic-fleet/integrations/FleetServer*/*
 {% endif %}
 {% else %}
 
