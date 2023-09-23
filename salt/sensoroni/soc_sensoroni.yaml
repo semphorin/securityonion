@@ -147,14 +147,14 @@ sensoroni:
         description: Determines if live flow analysis is used.
         helpLink: cases.html
         global: False
-        sensitive: True
+        sensitive: False
         advanced: True
         forcedType: string
       mailbox_email_address:
         description: Source mailbox address for the Sublime Platform analyzer.
         helpLink: cases.html
         global: False
-        sensitive: True
+        sensitive: False
         advanced: True
         forcedType: string
     urlscan:

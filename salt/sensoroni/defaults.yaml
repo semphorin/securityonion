@@ -28,7 +28,7 @@ sensoroni:
         lookup_host: zen.spamhaus.org
         nameservers: []
       sublime_platform:
-        base_url:
+        base_url: 
         api_key:
         live_flow:
         mailbox_email_address:
