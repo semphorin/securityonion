@@ -4,12 +4,13 @@
     { "set":         { "field": "event.module", "value": "sublime"  } },
     { "set":         { "field": "event.dataset", "value": "alert"  } },
     { "set":         { "field": "event.severity", "value": 3, "override": true }  },
-    { "set":         { "field": "rule.name", "value": "Sublime Email Rule Triggered: {{ flagged_rules.0.name }}", "override": true }  },
+    { "set":         { "field": "rule.name", "value": "Sublime Platform: {{ flagged_rules.0.name }}", "override": true }  },
     { "set":         { "field": "sublime.message_group_id", "value": "{{ metadata._id }}", "override": true }  },
     {
         "grok": {
           "field": "sublime.request_url",
-          "patterns": ["^%{DATA:sublime_host}/v0%{GREEDYDATA}$"]
+          "patterns": ["^https://api.%{DATA:sublime_host}/v0%{GREEDYDATA}$"],
+          "ignore_failure": true
         }
     },
     { "rename":      { "field": "sublime_host", "target_field": "sublime.url", "ignore_missing": true } },
@@ -22,4 +23,3 @@
     { "pipeline":    { "name": "common" } }
   ]
 }
-
