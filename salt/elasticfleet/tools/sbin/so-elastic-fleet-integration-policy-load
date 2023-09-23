@@ -63,9 +63,9 @@ if [ ! -f /opt/so/state/eaintegrations.txt ]; then
   fi
  
   # Fleet Server - Optional integrations
-  for INTEGRATION in /opt/so/conf/elastic-fleet/integrations/FleetServer*/*.json
+  for INTEGRATION in /opt/so/conf/elastic-fleet/integrations-optional/FleetServer*/*.json
   do
-    if ! [ "$INTEGRATION" == "/opt/so/conf/elastic-fleet/integrations/FleetServer*/*.json" ]; then
+    if ! [ "$INTEGRATION" == "/opt/so/conf/elastic-fleet/integrations-optional/FleetServer*/*.json" ]; then
       FLEET_POLICY=`echo "$INTEGRATION"| cut -d'/' -f7`
       printf "\n\nFleet Server Policy - Loading $INTEGRATION\n"
       elastic_fleet_integration_check "$FLEET_POLICY" "$INTEGRATION"
