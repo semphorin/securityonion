@@ -83,6 +83,13 @@ eaintegration:
     - user: 947
     - group: 939
 
+eaoptionalintegrationsdir:
+  file.directory:
+    - name: /opt/so/conf/elastic-fleet/integrations-optional
+    - user: 947
+    - group: 939
+    - makedirs: True
+
 {% for minion in node_data %}
 {% set role = node_data[minion]["role"] %}
 {% if role in [ "fleet","heavynode", "manager","managersearch","standalone" ] %}
@@ -90,7 +97,7 @@ eaintegration:
 {% set integration_keys = salt['pillar.get']('elasticfleet:optional_integrations', {}).keys() %}
 fleet_server_integrations_{{ minion }}:
   file.directory:
-    - name: /opt/so/conf/elastic-fleet/integrations/FleetServer_{{ minion }}
+    - name: /opt/so/conf/elastic-fleet/integrations-optional/FleetServer_{{ minion }}
     - user: 947
     - group: 939
     - makedirs: True
@@ -99,7 +106,7 @@ fleet_server_integrations_{{ minion }}:
 {% if minion in enabled_nodes %}
 optional_integrations_dynamic_{{ minion }}_{{ integration }}:
   file.managed:
-    - name: /opt/so/conf/elastic-fleet/integrations/FleetServer_{{ minion }}/{{ integration }}.json
+    - name: /opt/so/conf/elastic-fleet/integrations-optional/FleetServer_{{ minion }}/{{ integration }}.json
     - source: salt://elasticfleet/files/integrations-optional/{{ integration }}.json
     - user: 947
     - group: 939
@@ -117,7 +124,7 @@ ea-integrations-load:
     - onchanges:
       - file: eaintegration
       - file: eadynamicintegration
-      - file: /opt/so/conf/elastic-fleet/integrations/FleetServer*/*
+      - file: /opt/so/conf/elastic-fleet/integrations-optional/*
 {% endif %}
 {% else %}
 
