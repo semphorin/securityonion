@@ -7,22 +7,30 @@
 
 stig_conf=/opt/so/conf/stig
 stig_log=/opt/so/log/stig
-. /root/SecurityOnion/setup/so-functions
+
+
 . /usr/sbin/so-common
 
-# logCmd() {
-# 	cmd=$1
-# 	info "Executing command: $cmd"
-# 	$cmd 2>&1 | tee -a $stig_log/so-stig.log
-# }
+log() {
+	msg=$1
+	level=${2:-I}
+	now=$(TZ=GMT date +"%Y-%m-%dT%H:%M:%SZ")
+	echo -e "$now | $level | $msg" 2>&1 | tee -a "$stig_log/stig.log"
+}
 
-# title() {
-# 	echo -e "\n-----------------------------\n $1\n-----------------------------\n" >> "$stig_log/so-stig.log" 2>&1
-# }
+info() {
+	log "$1" "INFO"
+}
 
-# info() {
-# 	log "$1" "INFO"
-# }
+title() {
+	echo -e "\n-----------------------------\n $1\n-----------------------------\n" >> "$stig_log/stig.log" 2>&1
+}
+
+logCmd() {
+	cmd=$1
+	info "Executing command: $cmd"
+	$cmd 2>&1 | tee -a $setup_log
+}
 
 apply_cat1(){
     title "Running a oscap eval before modifying system"
