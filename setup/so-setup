@@ -783,6 +783,10 @@ if ! [[ -f $install_opt_file ]]; then
 		fi
 		checkin_at_boot
 		set_initial_firewall_access
+		if [[ "$test_profile" =~ "-stigs" ]]; then
+			title "EXPERIMENTAL: Applying STIGs setup"
+			logCmd "salt-call state.apply stig -l info"
+		fi
 		logCmd "salt-call schedule.enable -linfo --local"
 		verify_setup
 	else
@@ -811,6 +815,7 @@ if ! [[ -f $install_opt_file ]]; then
 		drop_install_options
 		checkin_at_boot
 		logCmd "salt-call state.apply setup.highstate_cron --local --file-root=../salt/"
+
 		verify_setup
 	fi
 

@@ -93,17 +93,21 @@ apply_cat2(){
     logCmd "oscap xccdf eval --profile xccdf_org.ssgproject.content_profile_stig --results $stig_log/post-oscap-results.xml --report $stig_log/post-oscap-report.html /usr/share/xml/scap/ssg/content/ssg-ol9-ds.xml"
 }
 
-if is_feature_enabled "stig"; then
-    title "STIG feature is enabled"
-    title "Applying STIGs"
-    apply_cat1
-    apply_cat2
-    title "STIGs applied"
-else
-    echo "The application of STIGs is a feature of Security Onion supported only for customers with a valid license. Contact Security Onion Solutions, LLC via our website at https://securityonionsolutions.com for more information about purchasing a license to enable this feature."
-fi
+# if is_feature_enabled "stig"; then
+#     title "STIG feature is enabled"
+#     title "Applying STIGs"
+#     apply_cat1
+#     apply_cat2
+#     title "STIGs applied"
+# else
+#     echo "The application of STIGs is a feature of Security Onion supported only for customers with a valid license. Contact Security Onion Solutions, LLC via our website at https://securityonionsolutions.com for more information about purchasing a license to enable this feature."
+# fi
 
-
+title "EXPERIMENTAL: Applying STIGs!"
+info "A Security Onion Pro license is required for this feature."
+apply_cat1
+apply_cat2
+title "STIGs applied"
 
 
 
