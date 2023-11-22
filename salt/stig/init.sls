@@ -10,6 +10,14 @@
 
 # Need to split into enabled.sls / disabled.sls and add default.yaml + soc_default.yaml so that stigs have to be enabled from SOC UI and avoid unintentional application
 # Stigs should only be applied if OS is OL9, license feature is active, and stig is enabled in SOC UI
+oscap_packages:
+  pkg.installed:
+    - skip_suggestions: True
+    - pkgs:
+        - openscap
+        - openscap-scanner
+        - scap-security-guide
+
 make_some_dirs:
   file.directory:
     - name: /opt/so/log/stig
