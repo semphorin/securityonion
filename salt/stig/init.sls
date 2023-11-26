@@ -32,6 +32,15 @@ make_more_dir:
     - group: socore
     - makedirs: True
 
+update_stig_profile:
+  file.managed:
+    - name: /opt/so/conf/stig/SOS-ol9-ds-CAT1-CAT2.xml
+    - source: salt://stig/files/SOS-ol9-ds-CAT1-CAT2.xml
+    - user: socore
+    - group: socore
+    - mode: 0644
+    - template: jinja
+
 update_remediation_script:
   file.managed:
     - name: /usr/sbin/so-stig
