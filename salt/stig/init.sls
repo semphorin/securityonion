@@ -39,7 +39,6 @@ update_stig_profile:
     - user: socore
     - group: socore
     - mode: 0644
-    - template: jinja
 
 update_remediation_script:
   file.managed:
