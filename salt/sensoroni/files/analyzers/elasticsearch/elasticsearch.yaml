@@ -1,0 +1,30 @@
+base_url: "{{ salt['pillar.get']('sensoroni:analyzers:elasticsearch:base_url:', '') }}"
+authUser: "{{ salt['pillar.get']('sensoroni:analyzers:elasticsearch:authUser', '') }}"
+authPWD: "{{ salt['pillar.get']('sensoroni:analyzers:elasticsearch:authPWD', '') }}"
+numResults: "{{ salt['pillar.get']('sensoroni:analyzers:elasticsearch:numResults', '') }}"
+api_key: "{{ salt['pillar.get']('sensoroni:analyzers:elasticsearch:api_key', '') }}"
+index: "{{ salt['pillar.get']('sensoroni:analyzers:elasticsearch:index', '') }}"
+timeDeltaMinutes: "{{ salt['pillar.get']('sensoroni:analyzers:elasticsearch:timeDeltaMinutes', '') }}"
+timestampFieldName: "{{ salt['pillar.get']('sensoroni:analyzers:elasticsearch:timestampFieldName', '') }}"
+map: {{ salt['pillar.get']('sensoroni:analyzers:elasticsearch:map', '') }}
+
+# list of observables from SO
+# hash
+# domain
+# file
+# filename
+# fqdn
+# gimphash
+# ip
+# mail
+# mail_subject
+# regexp
+# registry
+# telfhash
+# tlsh
+# uri_path
+# url
+# user-agent
+
+
+
